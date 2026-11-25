@@ -2,6 +2,7 @@
 import FeatureCategory from "./components/FeatureCategory";
 import { Navbar } from "./components/Navbar";
 import SwiperHero from "./components/SwiperHero";
+import TopSelling from "./components/TopSelling";
 
 
 
@@ -12,6 +13,7 @@ export default function Home() {
    
      <SwiperHero/>
    <FeatureCategory/>
+   <TopSelling/>
    {/* <Body/> */}
 
     </div>
