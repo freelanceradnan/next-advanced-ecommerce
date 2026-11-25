@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
+import Title from '@/app/components/Title'
 export interface productNames {
   id: number;
   title: string;
@@ -22,10 +22,10 @@ const products: productNames[] = [
 const FeatureCategory = () => {
   return (
     <section className="mx-auto w-full max-w-[1400px] px-4 py-6">
-      <h2 className="text-center text-2xl font-semibold uppercase text-global-main md:text-[30px]">
+      {/* <h2 className="text-center text-2xl font-semibold uppercase text-global-main md:text-[30px]">
         Featured Categories
-      </h2>
-
+      </h2> */}
+     <Title text="text-center">FEATURED CATEGORIES</Title>;
       {/* mobile/tablet: swipe row, desktop: 8 equal columns */}
       <div className="flex snap-x gap-4 overflow-x-auto py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:grid lg:grid-cols-8 lg:overflow-visible">
         {products.map((item) => (
