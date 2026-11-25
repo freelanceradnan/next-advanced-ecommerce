@@ -3,7 +3,7 @@ import Link from "next/link";
 import Title from "./Title";
 import DummySellingProduct from "@/app/db/ProductDummy";
 import Image from "next/image";
-import { ShoppingCart, Zap } from "lucide-react";
+import { ShoppingCart, Tag, Zap } from "lucide-react";
 
 export interface ProductSize {
   size: string;
@@ -30,15 +30,20 @@ const TopSelling = () => {
     <section className="mx-auto w-full max-w-[1400px] px-4 py-6 bg-[#F9F9F9]">
       <Title text="text-center">TOP SELLING PRODUCTS</Title>
 
-      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
-        {DummySellingProduct.map((item) => (
-         <Link
+      <div className="mt-6 grid gap-4 grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+        {DummySellingProduct.map((item) => {
+            const hasDiscount = item.mainPrice > item.price && item.mainPrice > 0;
+            const discountPercent = hasDiscount
+  ? Math.round(((item.mainPrice - item.price) / item.mainPrice) * 100)
+  : 0;
+       return(
+          <Link
   key={item.id}
   href={`/product/${item.id}`}
-  className="group flex lg:justify-between rounded-xl bg-[#FFFFFF] p-4 transition hover:shadow-md gap-4 shadow-sm relative"
+  className="group md:flex lg:justify-between rounded-xl bg-[#FFFFFF] p-4 transition hover:shadow-md gap-4 shadow-sm relative"
 >
   {item.topSelling && (
-  <span className="absolute right-0 top-0 z-[2] inline-flex items-center gap-1 rounded-bl-xl rounded-tr-2xl bg-[#E7C22D] px-3 py-1.5 text-xs font-bold text-slate-950 shadow-sm">
+  <span className="absolute right-0 top-0 z-[2] inline-flex items-center gap-1 rounded-bl-xl rounded-tr-2xl bg-[#E7C22D] px-1 md:px-3 py-1 md:py-1.5 text-xs font-bold text-slate-950 shadow-sm">
     <svg
       viewBox="0 0 24 24"
       width="12"
@@ -52,7 +57,7 @@ const TopSelling = () => {
   </span>
 )}
   <div>
-    <div className="relative h-70 aspect-square w-full overflow-hidden rounded-lg bg-gray-50">
+    <div className="relative h-full aspect-square w-full overflow-hidden rounded-lg bg-gray-50">
       <Image
         src={item.image}
         alt={item.title}
@@ -68,9 +73,14 @@ const TopSelling = () => {
   <div className="mt-3 flex flex-col gap-4">
      
 
-    <h3 className="mt-1 line-clamp-2 text-[20px] font-semibold text-gray-900">
+    <h3 className="text-[13px] mt-1 line-clamp-2 md:text-[20px] font-semibold text-gray-900">
       {item.title}
     </h3>
+    
+      {item.mainPrice > item.price &&(
+        <h3 className="bg-global-main md:hidden w-25 uppercase text-xs text-white font-semibold text-center rounded-full py-0.5 flex gap-1 justify-center"><Tag size={15}/>{discountPercent}% off</h3>
+      )}
+   
     <div className="flex items-baseline gap-2">
       <span className="text-base font-bold text-gray-900">
         ৳{item.price}
@@ -81,17 +91,18 @@ const TopSelling = () => {
         </span>
       )}
     </div>
-    <div className="bg-[#BFDB38] w-25 flex items-center justify-center rounded-full text-[14px] py-1">
+    <div className="bg-[#BFDB38] w-25 md:flex items-center justify-center rounded-full text-[14px] py-1 hidden">
         Save ৳{item.mainPrice-item.price}
     </div>
-    <div className="flex flex-col gap-4">
-        <button className="w-40 border flex gap-1 rounded-sm flex items-center text-global-main py-2 justify-center"><ShoppingCart /><span className="font-bold">Add To Cart</span></button>
-        <button className="w-40 border flex gap-1 rounded-sm flex items-center bg-global-main py-2 justify-center text-white"><Zap />Buy Now</button>
+    <div className="flex flex-col gap-4 items-center md:items-start">
+        <button className="md:w-40 border flex gap-1  flex items-center md:text-global-main md:py-2 justify-center bg-global-main md:bg-white text-white w-full md:rounded-xl py-3 rounded-full"><ShoppingCart /><span className="font-bold">Add To Cart</span></button>
+        <button className="hidden w-40 border flex gap-1 rounded-sm md:flex items-center bg-global-main py-2 justify-center text-white"><Zap />Buy Now</button>
     </div>
     
   </div>
 </Link>
-        ))}
+       )
+})}
       </div>
     </section>
   );
