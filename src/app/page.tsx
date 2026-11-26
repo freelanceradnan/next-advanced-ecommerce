@@ -1,5 +1,6 @@
 
 import FeatureCategory from "./components/FeatureCategory";
+import Footer from "./components/Footer";
 import { Navbar } from "./components/Navbar";
 import NewsLetter from "./components/NewsLetter";
 import SwiperHero from "./components/SwiperHero";
@@ -16,6 +17,7 @@ export default function Home() {
    <FeatureCategory/>
    <TopSelling/>
    <NewsLetter/>
+   <Footer/>
    {/* <Body/> */}
 
     </div>
